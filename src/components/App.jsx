@@ -9,7 +9,7 @@ export default class App extends React.Component{
     return (
       <div>
         <ul>
-          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/home"><strong>Home</strong></Link></li>
           <li><Link to="/products">Products</Link></li>
         </ul>
          {this.props.children}

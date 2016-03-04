@@ -24,8 +24,14 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.0",
     "css-loader": "^0.23.1",
+    "express": "^4.13.4",
     "file-loader": "^0.8.5",
     "flux": "^2.1.1",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-nodemon": "^2.0.6",
+    "html-webpack-plugin": "^2.9.0",
     "json-loader": "^0.5.4",
     "node-sass": "^3.4.2",
     "react": "^0.14.7",
@@ -37,7 +43,8 @@
     "superagent": "^1.7.2",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
+    "webpack-dev-middleware": "^1.5.1",
     "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.7.1"
+    "webpack-hot-middleware": "^2.9.1"
   }
 }
