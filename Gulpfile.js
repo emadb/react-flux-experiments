@@ -25,6 +25,7 @@ gulp.task('default', ['lint'], function() {
   nodemon({
     script: './api/server.js',
     ext: 'js json',
+    ignore: 'fe/',
     env: {
       'NODE_ENV': 'development'
     },

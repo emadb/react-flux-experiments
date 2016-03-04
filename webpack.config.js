@@ -6,7 +6,7 @@ var config = {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    './src/components/App.jsx'
+    './fe/js/App.jsx'
   ],
   resolve: {
     extensions: ['', '.js', '.jsx'],
@@ -22,7 +22,7 @@ var config = {
   },
   plugins:[
     new HtmlWebpackPlugin({
-      template: 'src/index.tpl.html',
+      template: 'fe/index.tpl.html',
       inject: 'body',
       filename: 'index.html'
     }),

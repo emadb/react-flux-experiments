@@ -13,7 +13,7 @@ if (isDeveloping) {
   const compiler = webpack(config);
   const middleware = webpackMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    contentBase: 'src',
+    contentBase: 'fe',
     stats: {
       colors: true,
       hash: false,
@@ -38,6 +38,8 @@ if (isDeveloping) {
 }
 
 app.use('/', require('./routes/products'))
+app.use('/', require('./routes/commands'))
+
 
 app.listen(port, '0.0.0.0', function onStart(err) {
   if (err) {
