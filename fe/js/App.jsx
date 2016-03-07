@@ -6,6 +6,8 @@ import createStore from './store'
 import reducers from './reducers'
 import INITIAL_STATE from './initialState'
 
+import Home from './Home'
+
 require('../sass/style.scss');
 
 let store = createStore(reducers, INITIAL_STATE)
@@ -23,7 +25,10 @@ export default class App extends React.Component{
     this.setState(store.getState())
   }
   render() {
-    let children = React.cloneElement(this.props.children, { store: store });
+    let children = <div>HOOME</div>
+    if (this.props.children){
+      children = React.cloneElement(this.props.children, { store: store });
+    }
     return (
       <div>
         <ul>
