@@ -1,7 +1,7 @@
 import React from 'react'
 import dispatcher from './AppDispatcher'
 
-const Composer = (Container, procs = []) => class extends React.Component {
+const Composer = (Container, procs = []) => class Composer extends React.Component {
   constructor(props){
     super(props)
     this.state = {props: null}
