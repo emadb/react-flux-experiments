@@ -1,21 +1,29 @@
-var React = require('react');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
+import React from 'react';
+import Router from 'react-router';
+import Composer from './Composer'
+import dispatcher from './AppDispatcher'
 
-var Home = React.createClass({
-  getInitialState: function() {
-    return {
-    };
-  },
-  render: function() {
+class Home extends React.Component {
+  send(){
+    console.log('send...')
+    dispatcher.dispatch({
+      type: 'UPDATE_PROPS',
+      data: {message: 'hellooooo'}
+    });
+  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('props', nextProps)
+  // }
+  render() {
+    console.log('props-render', this.props)
     return (
-      <div className="view">
+        <div className="view">
           Welcome!
-      </div>
+          <div>{this.props.message}</div>
+          <button onClick={this.send.bind(this)}>Send message</button>
+        </div>
       );
   }
-});
+}
 
-
-
-module.exports = Home;
+export default Composer(Home)
