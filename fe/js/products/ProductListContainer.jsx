@@ -1,62 +1,57 @@
 import React from 'react';
 import api from '../api'
 import broker from '../bus'
+import dispatcher from '../AppDispatcher'
 import {store} from '../store'
+import Composer from '../Composer'
 
-export default class ProductListContainer extends React.Component{
+class ProductListContainer extends React.Component{
   onLoad(){
-    //broker.send({action: 'LOAD_PRODUCTS'})
-    productService.loadProducts()
-  }
-  componentWillMount() {
-    // EMA: Send the request to load products
-    dataProvider.dispatch({type: 'LOAD_PRODUCTS', props:[products], data: {}})
-  }
-  componentWillReceiveProps(pp){
-   console.log('cwrp',pp)
+    dispatcher.dispatch({
+      type: 'LOAD_PRODUCTS',
+      data: {message: 'products'}
+    });
   }
   render() {
     return (
       <div>
+        <ul>
+          {this.props.products.map(p => <li key={p.code}>{p.code}</li>)}
+        </ul>
         <button onClick={this.onLoad.bind(this)}>Load</button>
       </div>
     );
   }
 };
 
-
-const dataProvider = {
-  dispatch(action) {
-    // send the request to the in-memory bus
-  }
+ProductListContainer.defaultProps = {
+  products: []
 }
 
-const actionListeners ={
-  register(){
-    // register for the actions
-  },
-  onAction(action){
-    switch(action.type){
-      case 'LOAD_PRODUCTS':
-        api.get('/products').end((err, res) => {
-          dataProvider.dispatch({type: 'PRODUCTS_LOADED', props:action.props, data: res.body })
-        })
-        break;
-      case 'PRODUCTS_LOADED':
-        // SET the property action.prop to action.data
-        break;
-    }
-  }
+function p1(data){
+  data.products = data.products.map(p => {
+    p.code = p.code.toUpperCase()
+    return p
+  })
+  return data
 }
 
-
-const productService = {
-  loadProducts(){
-    api.get('/products').end((err, res) => {
-      console.log(res)
-
-      //broker.fromServer({action: 'PRODUCTS_LOADED', content: res.body})
-      store.dispatch({type: 'PRODUCTS_LOADED', content: res.body})
-    })
-  }
+function p2(data){
+  data.products = data.products.map(p => {
+    p.code = p.code + '*'
+    return p
+  })
+  return data
 }
+
+export default Composer(ProductListContainer, [p1, p2])
+
+dispatcher.register(action => {
+  switch(action.type){
+    case 'LOAD_PRODUCTS':
+      api.get('/products').end((err, res) => {
+        dispatcher.dispatch({type: 'UPDATE_PROPS', data: {products: res.body} })
+      })
+      break;
+  }
+})

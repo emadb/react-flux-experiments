@@ -1,24 +1,26 @@
 import React from 'react'
 import dispatcher from './AppDispatcher'
 
-const Composer = Container => class extends React.Component {
+const Composer = (Container, procs = []) => class extends React.Component {
   constructor(props){
     super(props)
-    this.state = {}
+    this.state = {props: null}
   }
   componentWillMount(){
-    dispatcher.register(action => {
-      console.log('received', action)
+    this.subscriptionToken = dispatcher.register(action => {
       if (action.type === 'UPDATE_PROPS') {
-        this.setState(action.data)
+        let data = action.data
+        data = procs.reduce((acc, p) => p(data), data)
+        this.setState({props: data})
       }
     })
   }
-  render() {
-    console.log('state', this.state)
-    return <Container {...this.state} />
+  componentWillUnmount() {
+    dispatcher.unregister(this.subscriptionToken)
   }
-};
-
+  render() {
+    return <Container {...this.state.props} />
+  }
+}
 
 export default Composer
