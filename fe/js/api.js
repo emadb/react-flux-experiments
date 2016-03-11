@@ -1,6 +1,6 @@
 import request from 'superagent'
 let baseUrl = 'http://localhost:3000'
-const token = 'Bearer ' //+ localStorage.getItem('hep_token')
+const token = 'Bearer ' //+ localStorage.getItem('some_token')
 
 function logError(err, res){
   if (err) {

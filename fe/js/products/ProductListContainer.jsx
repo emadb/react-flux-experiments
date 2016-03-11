@@ -1,8 +1,6 @@
 import React from 'react';
 import api from '../api'
-import broker from '../bus'
 import dispatcher from '../AppDispatcher'
-import {store} from '../store'
 import Composer from '../Composer'
 
 class ProductListContainer extends React.Component{

@@ -9,8 +9,7 @@ const Composer = (Container, procs = []) => class extends React.Component {
   componentWillMount(){
     this.subscriptionToken = dispatcher.register(action => {
       if (action.type === 'UPDATE_PROPS') {
-        let data = action.data
-        data = procs.reduce((acc, p) => p(data), data)
+        const data = procs.reduce((acc, p) => p(action.data), action.data)
         this.setState({props: data})
       }
     })
