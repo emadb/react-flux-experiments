@@ -5,6 +5,7 @@ import Composer from '../Composer'
 
 class ProductListContainer extends React.Component{
   onLoad(){
+    // TODO: is probably better to directly calls an actionCreator (like flux)?
     dispatcher.dispatch({
       type: 'LOAD_PRODUCTS',
       data: {message: 'products'}
@@ -18,9 +19,9 @@ class ProductListContainer extends React.Component{
         </ul>
         <button onClick={this.onLoad.bind(this)}>Load</button>
       </div>
-    );
+    )
   }
-};
+}
 
 ProductListContainer.defaultProps = {
   products: []
@@ -48,7 +49,7 @@ dispatcher.register(action => {
   switch(action.type){
     case 'LOAD_PRODUCTS':
       api.get('/products').end((err, res) => {
-        dispatcher.dispatch({type: 'UPDATE_PROPS', data: {products: res.body} })
+        dispatcher.updateProps({products: res.body})
       })
       break;
   }
