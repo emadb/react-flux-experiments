@@ -18,7 +18,7 @@ const Composer = (Container, procs = []) => class Composer extends React.Compone
     dispatcher.unregister(this.subscriptionToken)
   }
   render() {
-    return <Container {...this.state.props} />
+    return <Container {...this.state.props} {...this.props} />
   }
 }
 
