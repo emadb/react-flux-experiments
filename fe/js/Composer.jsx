@@ -1,16 +1,17 @@
 import React from 'react'
 import dispatcher from './AppDispatcher'
 
-const Composer = (Container, procs = []) => class Composer extends React.Component {
+const Composer = (Container, reducers = []) => class Composer extends React.Component {
   constructor(props){
     super(props)
-    this.state = {props: null}
+    this.state = {props: {}}
   }
   componentWillMount(){
     this.subscriptionToken = dispatcher.register(action => {
-      if (action.type === 'UPDATE_PROPS') {
-        const data = procs.reduce((acc, p) => p(action.data), action.data)
-        this.setState({props: data})
+      if (action.subType === 'UPDATE_PROPS') {
+        const state = Object.assign(this.state.props, action.data || {})
+        const newState = reducers.reduce((prev, p) => p(prev, action), this.state.props)
+        this.setState({props: newState})
       }
     })
   }

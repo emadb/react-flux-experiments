@@ -16,6 +16,7 @@ export default class App extends React.Component{
         <ul>
           <li><Link to="/home"><strong>Home</strong></Link></li>
           <li><Link to="/products">Products</Link></li>
+          <li><Link to="/hello">hello</Link></li>
         </ul>
          {this.props.children}
       </div>
@@ -28,6 +29,7 @@ ReactDOM.render((
     <Route path="/" component={App}>
       <Route path="home" component={require('./Home')} />
       <Route path="products" component={require('./products/ProductListContainer')} />
+      <Route path="hello" component={require('./Hello')} />
     </Route>
   </Router>
 ), document.getElementById('appContainer'));
