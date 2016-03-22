@@ -11,18 +11,30 @@ class HelloContainer extends React.Component{
 
   componentWillMount() {
     helloActions.loadItems()
+    helloActions.getTesto()
   }
-
+  onChangeTesto(evt){
+    AppDispatcher.updateProps({type:'TESTO_LOADED', data: {testo: evt.target.value}})
+  }
   render(){
     return (
       <div>
         <MySelect items={[1,2,3]} onChange={this.onChange.bind(this)}/>
         <MySelect items={this.props.filteredItems} />
+        <MyText value={this.props.testo} onChangeTesto={this.onChangeTesto.bind(this)}/>
       </div>
     )
   }
 }
 
+
+class MyText extends React.Component{
+  render(){
+    return (
+      <input type="text" value={this.props.value} onChange={this.props.onChangeTesto} />
+    )
+  }
+}
 
 class MySelect extends React.Component{
   onChange(evt){
@@ -54,6 +66,9 @@ function reducer1(state, action){
 
 
 const helloActions = {
+  getTesto(){
+    AppDispatcher.updateProps({type:'TESTO_LOADED', data: {testo: 'helllooo'}})
+  },
   loadItems(){
     // api call
     AppDispatcher.updateProps({type:'ITEM2_LOADED', data: {items2: ['11','22','13', '23', '31', '32']}})
